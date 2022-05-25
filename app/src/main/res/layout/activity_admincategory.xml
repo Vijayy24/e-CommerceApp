@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminCategoryActivity">
+    tools:context=".AdminCategoryActivity"
+    android:background="#EACDDA">
+
 
     <TextView
         android:id="@+id/slogan_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="28dp"
+
+        android:fontFamily="sans-serif-black"
         android:text="Add New Product"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="26sp"
-        android:textStyle="bold"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
-
-
+        android:textStyle="bold|italic" />
 
     <LinearLayout
         android:id="@+id/linear1_category_layout"
@@ -151,35 +151,50 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/check_orders_btn"
+        android:id="@+id/maintain_product_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
+        android:layout_above="@id/check_orders_btn"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttons"
+        android:text="Maintain Products"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/check_orders_btn"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_above="@id/admin_logout_btn"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttons"
         android:text="Check New Orders"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_above="@id/admin_logout_btn"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/admin_logout_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/buttons"
         android:text="Logout"
-        android:textStyle="italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="italic" />
 
 
 

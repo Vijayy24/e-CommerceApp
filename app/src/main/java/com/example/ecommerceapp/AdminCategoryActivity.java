@@ -14,7 +14,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
     private ImageView glasses, hatsCaps, walletsBagsPurses, shoes;
     private ImageView headPhonesHandFree, Laptops, watches, mobilePhones;
 
-    private Button LogoutBtn,CheckOrderBtn;
+    private Button LogoutBtn,CheckOrderBtn, maintainProductsbtn;
 
 
     @Override
@@ -24,6 +24,8 @@ public class AdminCategoryActivity extends AppCompatActivity {
 
         LogoutBtn = findViewById(R.id.admin_logout_btn);
         CheckOrderBtn = findViewById(R.id.check_orders_btn);
+        maintainProductsbtn = findViewById(R.id.maintain_product_btn);
+
         LogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,6 +42,14 @@ public class AdminCategoryActivity extends AppCompatActivity {
 
                 startActivity(intent);
 
+            }
+        });
+        maintainProductsbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminCategoryActivity.this,HomeActivity.class);
+                intent.putExtra("Admin","Admin");
+                startActivity(intent);
             }
         });
 

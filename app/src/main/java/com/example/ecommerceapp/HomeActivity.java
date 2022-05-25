@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity
     private DatabaseReference ProductsRef;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    private String type = "";
 
     private String productID ="";
 
@@ -52,6 +53,12 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+       Intent intent = getIntent();
+       Bundle bundle = intent.getExtras();
+       if (bundle != null)
+       {
+           type = getIntent().getExtras().get("Admin").toString();
+       }
 
         ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
@@ -66,8 +73,11 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(HomeActivity.this,CartActivity.class);
-                startActivity(intent);
+                if(!type.equals("Admin")) {
+
+                    Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -83,8 +93,12 @@ public class HomeActivity extends AppCompatActivity
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
-        userNameTextView.setText(Prevalent.currentOnlineUser.getUserName());
-        //Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        if (!type.equals("Admin"))
+        {
+            userNameTextView.setText(Prevalent.currentOnlineUser.getUserName());
+            //Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        }
+
 
         recyclerView = findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
@@ -114,13 +128,27 @@ public class HomeActivity extends AppCompatActivity
                         holder.txtProductPrice.setText("Price = " + model.getPrice() + "$");
                         Picasso.get().load(model.getImage()).into(holder.imageView);
 
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+
+                        holder.itemView.setOnClickListener(new View.OnClickListener()
+                        {
                             @Override
-                            public void onClick(View view) {
-                               Intent intent = new Intent(HomeActivity.this,ProductDetailsActivity.class);
-                               intent.putExtra("pid",model.getPid());
-                               startActivity(intent);
-                                                           }
+                            public void onClick(View view)
+                            {
+                                if(type.equals("Admin"))
+                                {
+                                    Intent intent = new Intent(HomeActivity.this, AdminMaintainProductsActivity.class);
+                                    intent.putExtra("pid", model.getPid());
+                                    startActivity(intent);
+                                }
+                                else
+                                {
+                                    Intent intent = new Intent(HomeActivity.this, ProductDetailsActivity.class);
+                                    intent.putExtra("pid", model.getPid());
+                                    startActivity(intent);
+                                }
+
+                            }
                         });
                     }
 
@@ -179,14 +207,20 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_cart)
         {
-            Intent intent = new Intent(HomeActivity.this,CartActivity.class);
-            startActivity(intent);
+            if(!type.equals("Admin"))
+             {
+                Intent intent = new Intent(HomeActivity.this,CartActivity.class);
+                startActivity(intent);
+             }
 
         }
         else if (id == R.id.nav_search)
         {
-            Intent intent = new Intent(HomeActivity.this,SerchProductActivity.class);
-            startActivity(intent);
+            if(!type.equals("Admin")) {
+
+                Intent intent = new Intent(HomeActivity.this, SerchProductActivity.class);
+                startActivity(intent);
+            }
         }
         else if (id == R.id.nav_categories)
         {
@@ -194,17 +228,25 @@ public class HomeActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_settings)
         {
+            if(!type.equals("Admin"))
+            {
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
 
-            startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+            }
+
         }
         else if (id == R.id.nav_logout)
         {
-            Paper.book().destroy();
+            if(!type.equals("Admin"))
+            {
+                Paper.book().destroy();
 
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

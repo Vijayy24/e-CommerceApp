@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {

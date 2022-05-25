@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText InputPhoneNumber, InputPassword;
     private Button LoginButton;
     private ProgressDialog loadingBar;
-    private TextView AdminLink, NotAdminLink;
+    private TextView AdminLink,ForgetPasswordLink;
 
     private String parentDbName = "Users";
     private CheckBox chkBoxRememberMe;
@@ -45,7 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         InputPassword = findViewById(R.id.login_password_input);
         InputPhoneNumber =  findViewById(R.id.login_phone_number_input);
         AdminLink = findViewById(R.id.admin_panel_link);
-        NotAdminLink =  findViewById(R.id.not_admin_panel_link);
+
+        ForgetPasswordLink =findViewById(R.id.forget_password_link);
         loadingBar = new ProgressDialog(this);
 
 
@@ -65,23 +66,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                LoginButton.setText("Login Admin");
-                AdminLink.setVisibility(View.INVISIBLE);
-                NotAdminLink.setVisibility(View.VISIBLE);
-                parentDbName = "Admins";
+               Intent intent =new Intent(LoginActivity.this,AdminLoginActivity.class) ;
+                startActivity(intent);
             }
         });
-
-        NotAdminLink.setOnClickListener(new View.OnClickListener() {
+        ForgetPasswordLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                LoginButton.setText("Login");
-                AdminLink.setVisibility(View.VISIBLE);
-                NotAdminLink.setVisibility(View.INVISIBLE);
-                parentDbName = "Users";
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                intent.putExtra("check", "login");
+                startActivity(intent);
             }
         });
+
+
+
     }
 
 
